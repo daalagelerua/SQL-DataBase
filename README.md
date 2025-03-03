@@ -211,6 +211,30 @@ SELECT DATEDIFF('2025-01-01', '2024-03-03');  -- Différence en jours
 
 💡 **Analogie** : Les fonctions MySQL sont comme des outils de cuisine 🍳 qui permettent de transformer et manipuler les données.
 
+## What makes the big difference between a backtick and an apostrophe?
+
+What is the reason that the following two queries give wildly different results?
+
+```sql
+SELECT COUNT(DISTINCT(`price`)) FROM `products`; --Good
+```
+
+| COUNT(DISTINCT(`price`)) |
+|--------------------------|
+|                     2059 |
+
+
+```sql
+SELECT COUNT(DISTINCT('price')) FROM `products`; --Bad
+```
+
+| COUNT(DISTINCT('price')) |
+|--------------------------|
+|                        1 |
+
+- 'price' (apostrophes or quotes) is a string. It never changes, so the count is always 1.
+- \`price` (backtics) refers to the column price. So it could be more than 1.
+
 📌 ***Conclusion***
 - ✅ Une base de données est un moyen structuré de stocker des informations.
 - ✅ SQL est le langage pour manipuler ces données.
