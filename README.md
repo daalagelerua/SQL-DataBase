@@ -235,6 +235,14 @@ SELECT COUNT(DISTINCT('price')) FROM `products`; --Bad
 - 'price' (apostrophes or quotes) is a string. It never changes, so the count is always 1.
 - \`price` (backtics) refers to the column price. So it could be more than 1.
 
+
+* A straight single quote (') is used for string literals (along with straight double quote (")).
+* A backtick quote (`) is for quoting identifiers.
+
+
+- Identifiers must be quoted if they match a reserved word, or if they contain special characters.
+- Quoted identifiers also can specify lowercase in case-insensitive fields (which otherwise might be shown as uppercase).
+
 📌 ***Conclusion***
 - ✅ Une base de données est un moyen structuré de stocker des informations.
 - ✅ SQL est le langage pour manipuler ces données.
