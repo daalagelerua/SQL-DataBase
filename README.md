@@ -73,6 +73,70 @@ Dans comments, post_id est une clé étrangère qui pointe vers id dans posts.
 - Depuis un commentaire, on peut retrouver son article (avec post_id).
 - Depuis un article, on peut retrouver tous ses commentaires en recherchant les lignes où post_id = l'id de l'article.
 
+## Pourquoi ces relations sont puissantes ?
+
+Grâce aux relations entre les tables, on peut faire des requêtes SQL avancées, par exemple :
+
+*Retrouver les commentaires d’un article donné* :
+```sql
+SELECT * FROM comments WHERE post_id = 1;
+```
+
+*Retrouver tous les articles avec leurs commentaires en une seule requête (JOIN)* :
+```sql
+SELECT posts.title, comments.body 
+FROM posts 
+JOIN comments ON posts.id = comments.post_id;
+```
+
+*Retrouver tous les commentaires des articles publiés le mois dernier* :
+```sql
+SELECT comments.body 
+FROM comments 
+JOIN posts ON posts.id = comments.post_id 
+WHERE posts.published_at >= NOW() - INTERVAL 1 MONTH;
+```
+
+Ces relations permettent donc de structurer et d’exploiter les données de manière efficace.
+
+**Relations entre lignes d'une même table**
+
+Les relations ne sont pas toujours entre deux tables différentes. Parfois, une table peut être en relation avec elle-même.
+
+Exemples :
+
+*Un utilisateur qui est le sponsor d'un autre utilisateur*
+
+Table users :
+
+|id |	name |sponsor_id |
+|---|--------|-----------|
+|1  |	Alice|	NULL     |
+|2  |	Bob  |	1        |
+|3  |Charlie |	1        |
+
+Ici, la colonne sponsor_id fait référence à id dans la même table.
+
+Alice (id=1) est le sponsor de Bob (id=2) et Charlie (id=3).
+
+*Requête SQL pour retrouver les utilisateurs sponsorisés par Alice* :
+
+```sql
+SELECT * FROM users WHERE sponsor_id = 1;
+```
+
+*Un commentaire qui est une réponse à un autre commentaire*
+
+Table comments :
+
+|id |	body           |parent_id  |
+|---|------------------|-----------|
+|1  |	Super article !|	NULL   |
+|2  |	Merci ! 😊     |	1      |
+|3  |Je suis d'accord !|	1      |
+
+Ici, la colonne parent_id permet d’associer des réponses à un commentaire parent.
+
 ## 3. What does SQL stand for (Que signifie SQL ?)
 
 SQL (**Structured Query Language**) est un langage utilisé pour interagir avec les bases de données relationnelles.
