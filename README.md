@@ -29,6 +29,50 @@ C'est comme un restaurant où tu as plusieurs listes :
 
 *Ces listes sont connectées* : une commande est liée à un client, un plat fait partie d’une commande, etc.
 
+**Pourquoi appelle-t-on ça des bases de données "relationnelles" ?**
+Les bases de données sont appelées "relationnelles" parce qu'elles organisent les données sous forme de tables qui sont reliées entre elles.
+
+Le mot "relationnel" vient du fait que les tables étaient historiquement appelées "relations",
+car elles regroupent des données qui partagent une structure commune. Aujourd'hui, on parle plutôt de tables,
+mais le concept de relation existe toujours, avec une signification plus précise.
+
+**Qu'est-ce qu'une relation aujourd'hui ?**
+Dans le contexte actuel, une relation est un lien qui connecte deux enregistrements (rows) entre eux, souvent entre deux tables différentes.
+
+Prenons un exemple concret avec un blog qui contient des articles et des commentaires :
+
+*Table posts (articles)*
+
+|id |	title        |	body       |
+|---|----------------|-------------|
+|1  |Mon premier post|	Contenu... |
+|2  |	Un autre post|	Contenu... |
+
+*Table comments (commentaires)*
+
+|id |	body         |post_id|
+|---|----------------|-------|
+|1  |Super article ! |	1    |
+|2  |Très intéressant|	1    |
+|3  |J'adore ce post |	2    |
+
+***Comment relie-t-on les données entre elles ?***
+
+Dans la table posts, chaque article a un id unique (c'est la clé primaire).
+Mais comment savoir à quel article appartient un commentaire ?
+
+👉 On ajoute un champ post_id dans la table comments, qui stocke l'id du post associé.
+
+C'est ce qu'on appelle une clé étrangère (foreign key). Elle fait référence à la clé primaire d'une autre table.
+
+Dans posts, id est une clé primaire.
+Dans comments, post_id est une clé étrangère qui pointe vers id dans posts.
+
+**Grâce à cela** :
+
+- Depuis un commentaire, on peut retrouver son article (avec post_id).
+- Depuis un article, on peut retrouver tous ses commentaires en recherchant les lignes où post_id = l'id de l'article.
+
 ## 3. What does SQL stand for (Que signifie SQL ?)
 
 SQL (**Structured Query Language**) est un langage utilisé pour interagir avec les bases de données relationnelles.
