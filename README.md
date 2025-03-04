@@ -8,6 +8,13 @@ Elle permet de stocker des données de manière structurée afin de les retrouve
 Une base de données est comme un cahier de recettes, où chaque page contient une recette spécifique.
 Si tu veux retrouver une recette, tu peux chercher par catégorie (plats, desserts...) ou par ingrédient principal.
 
+A solid database is expected to be **ACID**, which means it guarantees:
+
+- **Atomicity**: transactions are atomic, which means if a transaction fails, the result will be like it never happened.
+- **Consistency**: you can define rules for your data, and expect that the data abides by the rules, or else the transaction fails.
+- **Isolation**: run two operations at the same time, and you can expect that the result is as though they were ran one after the other.
+- **Durability**: unplug your server at any time, boot it back up, and it didn’t lose any data.
+
 ## 2. What’s a relational database (Qu'est-ce qu'une base de données relationnelle ?)
 
 Une base de données relationnelle (RDB - Relational Database) est un type de base de données
